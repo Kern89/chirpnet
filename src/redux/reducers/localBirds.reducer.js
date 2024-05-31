@@ -1,8 +1,8 @@
-const localBirdsReducer = (state = {}, action) => {
+const localBirdsReducer = (state = [], action) => {
     switch (action.type) {
-        case 'GET_BIRDS':
+        case 'SET_BIRDS':
             return action.payload;
-        case 'NEW_STATE':
+        case 'NEW_LOC':
             return {};
         default:
             return state;
