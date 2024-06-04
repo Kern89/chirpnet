@@ -4,12 +4,11 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-function BirdsDropDown() {
+function BirdsDropDown({setBirdSp}) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch({ type: 'GET_BIRDS'})
     },[])
-    const [selectedSpecies, setSelectedSpecies] = useState('')
     const localBirds = useSelector(store => store.localBirds)
     const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -20,14 +19,15 @@ function BirdsDropDown() {
     setAnchorEl(null);
   };
   const setBird = (event) => {
-    setSelectedSpecies(event.target)
+    console.log(event.target.outerText);
+    // setBirdSp(event.target.outerText)
     setAnchorEl(null);
   }
     
     return (
         <>
         {/* need to look further at MUI doc to get menu working better, much of this is coppied directly from MUI for testing 
-            Needs to be scrollable!!
+            ------Needs to be scrollable!!------
         */}
         <Button onClick={handleClick}
         aria-controls={open ? 'basic-menu' : undefined}
@@ -37,8 +37,8 @@ function BirdsDropDown() {
         >Bird Species</Button>
         <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}> 
              {localBirds.map(bird => (
-            <MenuItem key={bird.sp_code} onClick={setBird}>
-                <h6>{bird.common_name}</h6>
+            <MenuItem key={bird.sp_code}>
+                <h6 onClick={setBird}>{bird.common_name}</h6>
             </MenuItem>
         ))}
         </Menu>

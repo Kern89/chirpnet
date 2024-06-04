@@ -23,7 +23,7 @@ function UserBirdList() {
     return (
         <>
         {userList.map(bird => (
-            <div>
+            <div key={bird.id}>
                 <h4>{bird.common_name}</h4>
                 <h6>{bird.date}</h6>
             </div>
