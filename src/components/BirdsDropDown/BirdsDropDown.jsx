@@ -19,8 +19,8 @@ function BirdsDropDown({setBirdSp}) {
     setAnchorEl(null);
   };
   const setBird = (event) => {
-    console.log(event.target.outerText);
-    // setBirdSp(event.target.outerText)
+    console.log(event.target);
+    setBirdSp(event.target.ariaValueNow)
     setAnchorEl(null);
   }
     
@@ -38,7 +38,7 @@ function BirdsDropDown({setBirdSp}) {
         <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}> 
              {localBirds.map(bird => (
             <MenuItem key={bird.sp_code}>
-                <h6 onClick={setBird}>{bird.common_name}</h6>
+                <h6 onClick={setBird} aria-valuenow={bird.id}>{bird.common_name}</h6>
             </MenuItem>
         ))}
         </Menu>

@@ -22,7 +22,23 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-  
+    console.log('req body',req.body,req.user.id);
+    const sqlText = `INSERT INTO "user_birdlist" ("bird_sp", "city", "state", "date", "notes", "user_id")
+        VALUES ($1, $2, $3, $4, $5, $6);`
+    const insertValues = [
+        req.body.bird_sp,
+        req.body.city,
+        req.body.state,
+        req.body.date,
+        req.body.notes,
+        req.user.id
+    ]
+    pool.query(sqlText, insertValues).then(result => {
+        res.sendStatus(201)
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
 });
 
 module.exports = router;
