@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get('/', (req, res) => {
     const sqlText = `SELECT "ub"."id", "city", "state", "date", "notes", "common_name", "scientific_name", "family_com" from "user_birdlist" AS "ub"
     JOIN "bird_species" ON "ub"."bird_sp" = "bird_species"."id"
@@ -18,9 +16,7 @@ router.get('/', (req, res) => {
     });
 });
 
-/**
- * POST route template
- */
+
 router.post('/', (req, res) => {
     console.log('req body',req.body,req.user.id);
     const sqlText = `INSERT INTO "user_birdlist" ("bird_sp", "city", "state", "date", "notes", "user_id")
@@ -40,5 +36,17 @@ router.post('/', (req, res) => {
         res.sendStatus(500);
     })
 });
+
+router.delete('/:id', (req, res) => {
+    console.log(req.params.id);
+    const sqlText = `DELETE FROM "user_birdlist" WHERE "id" = $1;`;
+
+    pool.query(sqlText, [req.params.id]).then(() => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;
