@@ -6,7 +6,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     const sqlText = `SELECT "ub"."id", "city", "state", "date", "notes", "common_name", "scientific_name", "family_com" from "user_birdlist" AS "ub"
     JOIN "bird_species" ON "ub"."bird_sp" = "bird_species"."id"
-    WHERE "user_id" = $1;`; 
+    WHERE "user_id" = $1
+    ORDER BY "common_name";`; 
 
     pool.query(sqlText, [req.user.id]).then(result => {
         res.send(result.rows);
@@ -47,6 +48,15 @@ router.delete('/:id', (req, res) => {
         console.log(error);
         res.sendStatus(500);
     })
+});
+
+router.put('/:id', (req, res) => {
+    console.log('req.body:', req.body);
+    console.log(req.params); 
+    // const sqlText = `UPDATE "user_birdlist" 
+    // SET "bird_sp" = '1', "city" = 'door', "state" = 'AZ', "date" = '2-2-2024', "notes" = 'testing testing... can you hear me?'
+    // WHERE "id" = 1;`
+    // needs to be adjusted
 })
 
 module.exports = router;
