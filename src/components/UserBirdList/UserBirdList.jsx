@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 
 
@@ -25,7 +26,7 @@ function UserBirdList() {
         {userList.map(bird => (
             <div key={bird.id}>
                 <h4>{bird.common_name}</h4>
-                <h6>{bird.date}</h6>
+                <h6>{moment(bird.date).format('LL')}</h6>
             </div>
         ))}
         </>
