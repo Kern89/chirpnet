@@ -50,13 +50,15 @@ router.delete('/:id', (req, res) => {
     })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/', (req, res) => {
     console.log('req.body:', req.body);
     console.log(req.params); 
     // const sqlText = `UPDATE "user_birdlist" 
-    // SET "bird_sp" = '1', "city" = 'door', "state" = 'AZ', "date" = '2-2-2024', "notes" = 'testing testing... can you hear me?'
-    // WHERE "id" = 1;`
-    // needs to be adjusted
+    // SET "city" = $1, "state" = $2, "date" = $3, "notes" = $4
+    // WHERE "id" = $5;`;
+
+    // pool.query(sqlText,)
+    
 })
 
 module.exports = router;
