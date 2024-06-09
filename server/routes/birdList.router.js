@@ -53,11 +53,17 @@ router.delete('/:id', (req, res) => {
 router.put('/', (req, res) => {
     console.log('req.body:', req.body);
     console.log(req.params); 
-    // const sqlText = `UPDATE "user_birdlist" 
-    // SET "city" = $1, "state" = $2, "date" = $3, "notes" = $4
-    // WHERE "id" = $5;`;
+    const sqlText = `UPDATE "user_birdlist" 
+    SET "city" = $1, "state" = $2, "date" = $3, "notes" = $4
+    WHERE "id" = $5;`;
 
-    // pool.query(sqlText,)
+    pool.query(sqlText, req.body[0], req.body[1], req.body[2], req.body[3], req.body[4],).then(result => {
+        console.log('Sighting updated:', req.params.id);
+        res.sendStatus(201);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
     
 })
 

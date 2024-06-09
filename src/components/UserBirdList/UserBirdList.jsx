@@ -57,14 +57,14 @@ function UserBirdList() {
     return (
         <>
         {userList.map((bird) => (
-            bird.id === editBirdId ? 
+            bird.id === editBirdId ? // need to have state use default value if no value is added??
                 <div key={bird.id}>
                     <h4>{bird.common_name}</h4>
                     <h6>{bird.scientific_name}</h6> 
                     <input onChange={(e) => setNewCity(e.target.value)} defaultValue={bird.city} />
-                    {/* <input onChange={(e) => setNewState(e.target.value)} defaultValue={bird.state} />
+                    <input onChange={(e) => setNewState(e.target.value)} defaultValue={bird.state} />
                     <input onChange={(e) => setNewDate(e.target.value)} defaultValue={moment(bird.date).format('LL')} />
-                    <input onChange={(e) => setNewNotes(e.target.value)}  defaultValue={bird.notes} />  */}
+                    <input onChange={(e) => setNewNotes(e.target.value)}  defaultValue={bird.notes} /> 
                     <button onClick={() => deleteBird(bird.id)}>Delete</button>
                     <button onClick={() => saveEditedBird(bird.id)}>Save</button> 
                 </div>
