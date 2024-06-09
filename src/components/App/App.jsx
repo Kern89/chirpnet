@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import AddBirdForm from '../AddBirdForm/AddBirdForm';
 
 import './App.css';
+import UserBirdList from '../UserBirdList/UserBirdList';
 
 function App() {
   const dispatch = useDispatch();
@@ -58,15 +59,22 @@ function App() {
             exact
             path="/user"
           >
-            <UserPage />
+            <UserBirdList />
           </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/nearby"
           >
-            <InfoPage />
+            
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/addbird"
+          >
+            <AddBirdForm />
           </ProtectedRoute>
 
           <Route
