@@ -23,6 +23,7 @@ import AddBirdForm from '../AddBirdForm/AddBirdForm';
 
 import './App.css';
 import UserBirdList from '../UserBirdList/UserBirdList';
+import NearbyBirds from '../NearbyBirds/NearbyBirds';
 
 function App() {
   const dispatch = useDispatch();
@@ -63,11 +64,10 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
             exact
             path="/nearby"
           >
-            
+            <NearbyBirds />
           </ProtectedRoute>
 
           <ProtectedRoute

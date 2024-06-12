@@ -1,10 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const axios = require('axios');
 
 
 router.get('/', (req, res) => {
-  const sqlText = `SELECT * FROM "bird_species";`
+  const sqlText = `SELECT "common_name" FROM "bird_species"
+                    ORDER BY "order", "common_name";`;
   pool.query(sqlText).then(result => {
     //console.log("get birds result:", result.rows);
     res.send(result.rows)
@@ -14,9 +16,61 @@ router.get('/', (req, res) => {
   })
 });
 
+// Called this once and then commented it out.
 
-router.post('/', (req, res) => {
-  // POST route code here
-});
+// router.post('/seed', async (req, res) => {
+//   const client = await pool.connect();
+    
+//   try {
+//     const response = await axios({
+//       method: 'get',
+//       url: 'https://api.ebird.org/v2/product/spplist/US-MN',
+//       headers: { 
+//         'X-eBirdApiToken': process.env.eBird_API
+//       }
+//     });
+//     const birdList = response.data;
+//     // console.log(birdList);
+//     await client.query('BEGIN');
+//     // Promise all would be more efficient but since we're only doing this once, a for loop will work just fine.
+//     for(let birdCode of birdList) {
+//       let birdResponse = await axios({
+//         method: 'get',
+//         url: `https://api.ebird.org/v2/ref/taxonomy/ebird?species=${birdCode}&fmt=json`,
+//         headers: { 
+//           'X-eBirdApiToken': process.env.eBird_API
+//         }
+//       });
+//        let queryText = `INSERT INTO "bird_species" ("sp_code", "common_name", "scientific_name", "order", "family_sci", "family_com")
+//                          VALUES ($1, $2, $3, $4, $5, $6);`;
+//       // console.log('CODE', birdCode);
+      
+//       if (birdResponse.data && birdResponse.data.length > 0) {
+//         let birdDetails = birdResponse.data[0];
+//          // console.log('bird Details:', birdDetails);
+//         await client.query(queryText, [
+//           birdDetails.speciesCode,
+//           birdDetails.comName,
+//           birdDetails.sciName,
+//           birdDetails.order,
+//           birdDetails.familySciName,
+//           birdDetails.familyComName,
+//         ]);
+//       } else {
+//         console.error('Bird with code', birdCode, 'not found');
+//       }
+//     }
+//     await client.query('COMMIT');
+//     res.sendStatus(200);
+//   } catch (error) {
+//     await client.query('ROLLBACK');
+//     console.error('Error inserting Birds:', error);
+//     res.sendStatus(500);
+//   } finally {
+//     client.release();
+//   }
+// });
+
+
 
 module.exports = router;

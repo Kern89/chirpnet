@@ -29,7 +29,6 @@ app.use('/api/user', userRouter);
 app.use('/api/birds', birdRouter);
 app.use('/api/birdList', birdListRouter);
 
-
 // Listen Server & Port
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

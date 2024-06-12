@@ -4,6 +4,7 @@ import axios from 'axios';
 function* getLocalBirds() {
     try{
         const birdResponse = yield axios.get('/api/birds');
+         // yield console.log('birdResponse.data:', birdResponse.data);
         yield put({
             type: 'SET_BIRDS',
             payload: birdResponse.data

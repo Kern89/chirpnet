@@ -3,7 +3,7 @@ const localBirdsReducer = (state = [], action) => {
         case 'SET_BIRDS':
             return action.payload;
         case 'NEW_LOC':
-            return {};
+            return [];
         default:
             return state;
     }

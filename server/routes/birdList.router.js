@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const axios = require('axios');
 
 
 router.get('/', (req, res) => {
@@ -15,6 +16,23 @@ router.get('/', (req, res) => {
         console.log('Error: GET birdList', error);
         res.sendStatus(500);
     });
+});
+
+// get route for nearby sightings of species
+router.get('/nearby', (req, res) => { 
+    axios({
+        method: 'get',
+        url: 'https://api.ebird.org/v2/data/obs/US-MN/recent?maxResults=15',
+        headers: { 
+        'X-eBirdApiToken': process.env.eBird_API
+        }
+    }).then(response => {
+    console.log('response data:', response.data);
+    res.send(response.data)
+  }).catch(error => {
+    console.log(error);
+    res.sendStatus(500);
+  })
 });
 
 
