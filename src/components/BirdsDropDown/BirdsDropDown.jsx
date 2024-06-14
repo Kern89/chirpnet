@@ -5,19 +5,20 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import axios from "axios";
 
-function BirdsDropDown({setBirdSp}) {
+function BirdsDropDown({setBirdSp, birdSp}) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch({ type: 'GET_BIRDS'});
-        console.log('local birds array:', localBirdsArray);
+        // console.log('local birds array:', localBirdsArray);
     },[])
     const localBirds = useSelector(store => store.localBirds);
     const localBirdsArray = [];
     {localBirds.map(bird => (
       localBirdsArray.push(bird.common_name)
     ))}
-    console.log('local birds array:', localBirdsArray);
+  //   console.log('local birds array:', localBirdsArray);
   // const [anchorEl, setAnchorEl] = useState(null);
   // const open = Boolean(anchorEl);
   // const handleClick = (event) => {
@@ -26,23 +27,33 @@ function BirdsDropDown({setBirdSp}) {
   // const closeMenu = () => {
   //   setAnchorEl(null);
   // };
-  // const setBird = (event) => {
-  //   console.log(event.target);
-  //   setBirdSp(event.target.ariaValueNow)
-  //   setAnchorEl(null);
-  // }
+  const setBird = (name) => {
+     // console.log("bird selected:", [name.inputProps.value]);
+    const birdName = name.inputProps.value;
+    const newBirdId = localBirds.find((bird) => bird.common_name === birdName)?.id;
+    // console.log(newBirdId);
+    setBirdSp(newBirdId);
+    // axios.get(`/api/birds/${birdName}`).then(response => {
+    //   console.log(response.data[0].id);
+    //   const birdID = response.data[0].id;
+    //   setBirdSp(birdID);
+    // }).catch(error => {
+    //   console.log(error);
+    //   alert('Something went wrong!');
+    // });
+    // setBirdSp('')
+    // setBirdSp(event.target.ariaValueNow)
+    // setAnchorEl(null);
+  }
     
     return (
         <>
-        {/* need to look further at MUI doc to get menu working better, much of this is coppied directly from MUI for testing 
-            ------Needs to be scrollable!!------
-        */}
         <Autocomplete
       disablePortal
       id="localBirds"
       options={localBirdsArray}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Bird Species" />}
+      renderInput={(params) => <TextField {...params} label="Bird Species" size='small' onClick={setBird(params)} />}
     />
         {/* <Button onClick={handleClick}
         aria-controls={open ? 'basic-menu' : undefined}

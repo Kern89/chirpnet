@@ -13,6 +13,11 @@ function AddBirdForm() {
         axios.post('/api/birdList', { bird_sp: birdSp, city: city, state: birdState, date: date, notes: notes })
             .then(response => {
                 console.log(response);
+                setDate('');
+                setCity('');
+                setBirdState('');
+                setNotes('');
+                setBirdSp('');
             }).catch(error => {
                 console.log(error);
                 alert('Something went wrong')
@@ -21,11 +26,11 @@ function AddBirdForm() {
 
     return (
         <form onSubmit={addBird}>
-        <BirdsDropDown required setBirdSp={setBirdSp}/>
-        <input type="date" required onChange={(e) => setDate(e.target.value)}/>
-        <TextField variant="outlined" placeholder='City' size='small' required onChange={(e) => setCity(e.target.value)}/>
-        <TextField variant="outlined" placeholder='State MN, WI, ETC.' size='small' required onChange={(e) => setBirdState(e.target.value)}/>
-        <TextField variant="outlined" placeholder='Notes' multiline rows={3} onChange={(e) => setNotes(e.target.value)}/>
+        <BirdsDropDown required setBirdSp={setBirdSp} birdSp={birdSp}/>
+        <input value={date} type="date" required onChange={(e) => setDate(e.target.value)}/>
+        <TextField value={city} variant="outlined" placeholder='City' size='small' required onChange={(e) => setCity(e.target.value)}/>
+        <TextField value={birdState} variant="outlined" placeholder='State MN, WI, ETC.' size='small' required onChange={(e) => setBirdState(e.target.value)}/>
+        <TextField value={notes} variant="outlined" placeholder='Notes' multiline rows={3} onChange={(e) => setNotes(e.target.value)}/>
         <br />
         <input type='Submit'/>
         </form>

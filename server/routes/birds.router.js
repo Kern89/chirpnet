@@ -5,7 +5,7 @@ const axios = require('axios');
 
 
 router.get('/', (req, res) => {
-  const sqlText = `SELECT "common_name" FROM "bird_species"
+  const sqlText = `SELECT * FROM "bird_species"
                     ORDER BY "order", "common_name";`;
   pool.query(sqlText).then(result => {
     //console.log("get birds result:", result.rows);
@@ -15,6 +15,35 @@ router.get('/', (req, res) => {
     res.sendStatus(500);
   })
 });
+
+router.get('/edit/:id', (req, res) => {
+  const sqlText = `SELECT * FROM "user_birdlist" AS "ub"
+                    JOIN "bird_species" ON "ub"."bird_sp" = "bird_species"."id"
+                    WHERE "ub"."id" = $1;`;
+    // console.log("req.params:", req.params.id);
+  pool.query(sqlText, [req.params.id]).then(result => {
+    // console.log(result.rows);
+    res.send(result.rows)
+  }).catch(error => {
+    console.log(error);
+    res.sendStatus(500);
+  })
+
+})
+
+// ----------- This Route isnt needed anymore??? -----------------------
+// router.get('/:id', (req, res) => {
+//   const sqlText = `SELECT "id" FROM "bird_species"
+//                     WHERE "common_name" = $1;`;
+//     // console.log("req.params:", req.params.id);
+//   pool.query(sqlText, [req.params.id]).then(result => {
+//     // console.log(result.rows);
+//     res.send(result.rows)
+//   }).catch(error => {
+//     console.log(error);
+//     res.sendStatus(500);
+//   })
+// })
 
 // Called this once and then commented it out.
 

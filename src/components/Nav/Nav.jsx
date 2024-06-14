@@ -36,6 +36,8 @@ function Nav() {
             {/* add ChirpNet or "logo" to be centered */}
             {user.username} 
             {/* Move users name to display on top right on dom */}
+            <br />
+            <LogOutButton className="navLink" />
           </>
         )}
       </div>
