@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import './RegisterForm.css';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -27,7 +28,7 @@ function RegisterForm() {
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2>Welcome Birder!</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -35,11 +36,11 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
           <input
             type="text"
             name="username"
             value={username}
+            placeholder='Username'
             required
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -47,10 +48,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
           <input
             type="password"
             name="password"
+            placeholder='Password'
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
@@ -59,10 +60,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="City">
-        City:
           <input
             type="test"
             name="City"
+            placeholder='City'
             value={city}
             required
             onChange={(event) => setCity(event.target.value)}
@@ -71,10 +72,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="State">
-          State:
           <input
             type="text"
             name="State"
+            placeholder='State'
             value={state}
             required
             onChange={(event) => setState(event.target.value)}
@@ -83,10 +84,10 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="Email">
-          Email:
           <input
             type="text"
             name="Email"
+            placeholder='Email'
             value={email}
             required
             onChange={(event) => setEmail(event.target.value)}

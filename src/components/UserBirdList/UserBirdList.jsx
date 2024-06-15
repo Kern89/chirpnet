@@ -1,30 +1,34 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function UserBirdList() {
+    const dispatch = useDispatch();
     const [userList, setUserList] = useState([]);
     const [editBirdId, setEditBirdId] = useState('');
     const [newCity, setNewCity] = useState('');
     const [newDate, setNewDate] = useState('');
     const [newState, setNewState] = useState('');
     const [newNotes, setNewNotes] = useState('');
-    // variables for edit state
-    const [editCity, setEditCity] = useState('');
-    const [editDate, setEditDate] = useState('');
-    const [editState, setEditState] = useState('');
-    const [editnotes, setEditNotes] = useState('');
+   
+    // edit valeus from store
+    const editCity = useSelector(store => store.editCity);
+    const editState = useSelector(store => store.editState);
+    const editDate = useSelector(store => store.editDate);
+    const editNotes = useSelector(store => store.editNotes);
 
-    
-    const editBird = (id) => {
+    // async await to make get request then send to reducer?
+    const editBird = async (id) => {
         setEditBirdId(id);
-        axios.get(`/api/birds/edit/${id}`).then(response => {
-            console.log("Response.data:", response.data[0]);
-            setEditCity(response.data[0].city);
-            setEditDate(response.data[0].date);
-            setEditState(response.data[0].state);
-            setEditNotes(response.data[0].notes);
+        await axios.get(`/api/birds/edit/${id}`).then(response => {
+            console.log("Response.data:", response.data[0]);//store response data in an array to be passed as payload to reducer?
+        dispatch({ type: 'SET_CITY', payload: response.data[0].city })
+        dispatch({ type: 'SET_STATE', payload: response.data[0].state });
+        dispatch({ type: 'SET_DATE', payload: response.data[0].date });
+        dispatch({ type: 'SET_NOTES', payload: response.data[0].notes });
+        dispatch({ type: 'SET_ID', payload: id });
             }).catch(error => {
             console.log(error);
             alert('Something went wrong!');
@@ -33,7 +37,7 @@ function UserBirdList() {
     
     const seenBirds = () => {
         axios.get('/api/birdList').then(response => {
-            // console.log('GET response',response.data);
+            //console.log('GET response',response.data);
             setUserList(response.data)
         }).catch(error => {
             console.log(error);
@@ -50,61 +54,22 @@ function UserBirdList() {
         })
     };
 
-    const handleCity = (e) => {
-        if(newCity === '') {
-            setNewCity(editCity);
-        } else {
-            setNewCity(e);
-        }
-    }
-
     const saveEditedBird = (id) => {
         const birdChanges = [
-            newCity,
-            newState,
-            newDate,
-            newNotes,
+            editCity,
+            editState,
+            editDate,
+            editNotes,
             id
         ];
-        if(newCity === '') {
-            console.log('in new city', newCity, editCity);
-            setNewCity(editCity);
-        };
-        if(newState === '') {
-            setNewState(editState);
-        };
-        if(newDate === '') {
-            setNewDate(editDate);
-        };
-        if(newNotes === '') {
-            setNewNotes(editnotes);
-        }
-    console.log("birdChanges:", birdChanges);
-        // newState === '' ? setNewState(editState): null;
-        // newDate === '' ? setNewDate(editDate): null;
-        // newNotes === '' ? setNewNotes(editnotes): null; 
-        
-        // await new Promise((resolve, reject) => axios.put(`/api/birdList`, [birdChanges])).then(response => {
-        //     console.log('PUT response:', response);
-        //     seenBirds();
-        // }).catch(error => {
-        //     console.log(error);
-        //     alert('somehting went wrong!');
-        // });
-        //// -------- Need to get this to wait for the axios call to complete/ maybe this can be a use for async await?
-        // const resetData = () => {
-        //     setNewCity('');
-        //     setNewState('');
-        //     setNewDates('');
-        //     setNewNotes('');
-        //     setEditCity('');
-        //     setEditDate('');
-        //     setEditNotes('');
-        //     setEditState('');
-        // };
-        // const resetWait = await resetData();
-        
-        // return resetWait;
+    // console.log("birdChanges:", birdChanges);
+    axios.put(`/api/birdList`, [birdChanges]).then(response => {
+        console.log('PUT response:', response);
+        seenBirds();
+    }).catch(error => {
+        console.log(error);
+        alert('somehting went wrong!');
+    });
        setEditBirdId('');
     };
  
@@ -119,10 +84,10 @@ function UserBirdList() {
                 <div key={bird.id}>
                     <h4>{bird.common_name}</h4>
                     <h6>{bird.scientific_name}</h6> 
-                    <input onChange={(e) => handleCity(e.target.value)} defaultValue={bird.city} />
-                    <input onChange={(e) => setNewState(e.target.value)} defaultValue={bird.state} />
-                    <input onChange={(e) => setNewDate(e.target.value)} defaultValue={moment(bird.date).format('LL')} />
-                    <input onChange={(e) => setNewNotes(e.target.value)}  defaultValue={bird.notes} /> 
+                    <input onChange={(e) => dispatch({ type: 'SET_CITY', payload: e.target.value })} defaultValue={bird.city} />
+                    <input onChange={(e) => dispatch({ type: 'SET_STATE', payload: e.target.value })} defaultValue={bird.state} />
+                    <input onChange={(e) => dispatch({ type: 'SET_DATE', payload: e.target.value })} defaultValue={moment(bird.date).format('LL')} />
+                    <input onChange={(e) => dispatch({ type: 'SET_NOTES', payload: e.target.value })}  defaultValue={bird.notes} /> 
                     <button onClick={() => deleteBird(bird.id)}>Delete</button>
                     <button onClick={() => saveEditedBird(bird.id)}>Save</button> 
                 </div>

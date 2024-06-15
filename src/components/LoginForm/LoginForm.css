@@ -1,0 +1,12 @@
+
+form {
+    text-align: center;
+}
+input {
+    background-color: #F8F7E6;
+    border-radius: 7px;
+}
+::placeholder {
+    color: #DC8376;
+    text-align: center;
+}

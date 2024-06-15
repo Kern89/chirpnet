@@ -32,8 +32,11 @@ function AddBirdForm() {
         <form onSubmit={addBird}>
         <BirdsDropDown required setBirdSp={setBirdSp} birdSp={birdSp}/>
         <input value={date} type="date" required onChange={(e) => setDate(e.target.value)}/>
+        <br />
         <TextField value={city} variant="outlined" placeholder='City' size='small' required onChange={(e) => setCity(e.target.value)}/>
+        <br />
         <TextField value={birdState} variant="outlined" placeholder='State MN, WI, ETC.' size='small' required onChange={(e) => setBirdState(e.target.value)}/>
+        <br />
         <TextField value={notes} variant="outlined" placeholder='Notes' multiline rows={3} onChange={(e) => setNotes(e.target.value)}/>
         <br />
         <input type='Submit'/>
