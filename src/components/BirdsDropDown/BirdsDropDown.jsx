@@ -30,9 +30,13 @@ function BirdsDropDown({setBirdSp, birdSp}) {
   const setBird = (name) => {
      // console.log("bird selected:", [name.inputProps.value]);
     const birdName = name.inputProps.value;
+    // 
     const newBirdId = localBirds.find((bird) => bird.common_name === birdName)?.id;
-    // console.log(newBirdId);
+      
+    console.log("newBirdId:", newBirdId);
     setBirdSp(newBirdId);
+      
+    
     // axios.get(`/api/birds/${birdName}`).then(response => {
     //   console.log(response.data[0].id);
     //   const birdID = response.data[0].id;

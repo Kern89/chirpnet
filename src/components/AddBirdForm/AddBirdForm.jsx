@@ -10,7 +10,10 @@ function AddBirdForm() {
     const [birdState, setBirdState] = useState('');
     const [notes, setNotes] = useState('');
     const addBird = () => {
-        axios.post('/api/birdList', { bird_sp: birdSp, city: city, state: birdState, date: date, notes: notes })
+        if(birdSp === undefined || null) {
+            alert("Please choose a species from the drop down menu.")
+          } else {
+            axios.post('/api/birdList', { bird_sp: birdSp, city: city, state: birdState, date: date, notes: notes })
             .then(response => {
                 console.log(response);
                 setDate('');
@@ -21,7 +24,8 @@ function AddBirdForm() {
             }).catch(error => {
                 console.log(error);
                 alert('Something went wrong')
-            })
+            }) 
+          }
     };
 
     return (

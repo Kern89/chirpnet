@@ -9,7 +9,7 @@ function UserBirdList() {
     const [newCity, setNewCity] = useState('');
     const [newDate, setNewDate] = useState('');
     const [newState, setNewState] = useState('');
-    const [newnotes, setNewNotes] = useState('');
+    const [newNotes, setNewNotes] = useState('');
     // variables for edit state
     const [editCity, setEditCity] = useState('');
     const [editDate, setEditDate] = useState('');
@@ -50,35 +50,62 @@ function UserBirdList() {
         })
     };
 
+    const handleCity = (e) => {
+        if(newCity === '') {
+            setNewCity(editCity);
+        } else {
+            setNewCity(e);
+        }
+    }
+
     const saveEditedBird = (id) => {
-        setEditBirdId('');
-        newCity === '' ? setNewCity(editCity): null;
-        newState === '' ? setNewState(editState): null;
-        newDate === '' ? setNewDate(editDate): null;
-        newnotes === '' ? setNewNotes(editnotes): null; 
         const birdChanges = [
             newCity,
             newState,
             newDate,
-            newnotes,
+            newNotes,
             id
         ];
-        axios.put(`/api/birdList`, [birdChanges]).then(response => {
-            console.log('PUT response:', response);
-            seenBirds();
-            //// -------- Need to get this to wait for the axios call to complete/ maybe this can be a use for async await?
-            // setNewCity('');
-            // setNewState('');
-            // setNewDates('');
-            // setNewNotes('');
-            // setEditCity('');
-            // setEditDate('');
-            // setEditNotes('');
-            // setEditState('');
-        }).catch(error => {
-            console.log(error);
-            alert('somehting went wrong!');
-        })
+        if(newCity === '') {
+            console.log('in new city', newCity, editCity);
+            setNewCity(editCity);
+        };
+        if(newState === '') {
+            setNewState(editState);
+        };
+        if(newDate === '') {
+            setNewDate(editDate);
+        };
+        if(newNotes === '') {
+            setNewNotes(editnotes);
+        }
+    console.log("birdChanges:", birdChanges);
+        // newState === '' ? setNewState(editState): null;
+        // newDate === '' ? setNewDate(editDate): null;
+        // newNotes === '' ? setNewNotes(editnotes): null; 
+        
+        // await new Promise((resolve, reject) => axios.put(`/api/birdList`, [birdChanges])).then(response => {
+        //     console.log('PUT response:', response);
+        //     seenBirds();
+        // }).catch(error => {
+        //     console.log(error);
+        //     alert('somehting went wrong!');
+        // });
+        //// -------- Need to get this to wait for the axios call to complete/ maybe this can be a use for async await?
+        // const resetData = () => {
+        //     setNewCity('');
+        //     setNewState('');
+        //     setNewDates('');
+        //     setNewNotes('');
+        //     setEditCity('');
+        //     setEditDate('');
+        //     setEditNotes('');
+        //     setEditState('');
+        // };
+        // const resetWait = await resetData();
+        
+        // return resetWait;
+       setEditBirdId('');
     };
  
     useEffect(() => {
@@ -92,7 +119,7 @@ function UserBirdList() {
                 <div key={bird.id}>
                     <h4>{bird.common_name}</h4>
                     <h6>{bird.scientific_name}</h6> 
-                    <input onChange={(e) => setNewCity(e.target.value)} defaultValue={bird.city} />
+                    <input onChange={(e) => handleCity(e.target.value)} defaultValue={bird.city} />
                     <input onChange={(e) => setNewState(e.target.value)} defaultValue={bird.state} />
                     <input onChange={(e) => setNewDate(e.target.value)} defaultValue={moment(bird.date).format('LL')} />
                     <input onChange={(e) => setNewNotes(e.target.value)}  defaultValue={bird.notes} /> 
@@ -108,11 +135,11 @@ function UserBirdList() {
                     <p>{bird.notes}</p>
                     <button onClick={() => deleteBird(bird.id)}>Delete</button>
                     <button onClick={() => editBird(bird.id)}>Edit</button> 
-                    {/* <button onClick={() => setEditBirdId(bird.id)}>Edit</button>  */}
-                    {/* Make edit onclick a function that sets bird id (target parent key?) 
-                        and sets the state for city state date notes */}
                 </div>
         ))}
+        {/* <button onClick={() => setEditBirdId(bird.id)}>Edit</button>  */}
+                    {/* Make edit onclick a function that sets bird id (target parent key?) 
+                        and sets the state for city state date notes */}
         </>
     )
 };
