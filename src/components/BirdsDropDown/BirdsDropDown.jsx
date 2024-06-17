@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import axios from "axios";
+import './BirdsDropDown.css'
 
 function BirdsDropDown({setBirdSp, birdSp}) {
     const dispatch = useDispatch();
@@ -52,13 +53,15 @@ function BirdsDropDown({setBirdSp, birdSp}) {
     
     return (
         <>
+        <div id="autocomp">
         <Autocomplete
       disablePortal
       id="localBirds"
       options={localBirdsArray}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Bird Species" size='small' onClick={setBird(params)} />}
+      sx={{ width: 300, style: { textAlign: 'center', align: 'center' } }}
+      renderInput={(params) => <TextField {...params} label="Bird Species" size='small' onClick={setBird(params)} required />}
     />
+    </div>
         {/* <Button onClick={handleClick}
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"

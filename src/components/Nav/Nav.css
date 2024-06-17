@@ -3,10 +3,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 0 30px;
-  background-color: #F8F7E6;
+  background-color: #F8A093;
   overflow: hidden;
+  background-image: url('chirpnet_logo_final.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  z-index: 1;
 }
 
 .nav a {
@@ -23,8 +27,8 @@
 
 .navLink {
   display: inline-block;
-  color: #70859B;
-  background-color: #F8F7E6;
+  color: #2B0702;
+  background-color: #F8A093;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -38,5 +42,20 @@
 }
 
 .navLink:hover {
-  color: #DC8376;
+  color: #F8A093;
+}
+#user {
+  display: flex;
+  align-self: flex-start;
+  margin: 20px;
+}
+.menu {
+  display: flex;
+  background-color: transparent;
+  color: #2B0702;
+  z-index: 2;
+  position: absolute;
+}
+.menu:hover {
+  color: #2B0702;
 }

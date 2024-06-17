@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import BirdsDropDown from '../BirdsDropDown/BirdsDropDown';
 import { useState } from 'react';
 import axios from 'axios';
+import './AddBirdForm.css';
 
 function AddBirdForm() {
     const [birdSp, setBirdSp] = useState('');
@@ -29,17 +30,27 @@ function AddBirdForm() {
     };
 
     return (
-        <form onSubmit={addBird}>
+        <form onSubmit={addBird} >
         <BirdsDropDown required setBirdSp={setBirdSp} birdSp={birdSp}/>
-        <input value={date} type="date" required onChange={(e) => setDate(e.target.value)}/>
+        <input value={date} type="date" required onChange={(e) => setDate(e.target.value)}
+                className='textfield' />
         <br />
-        <TextField value={city} variant="outlined" placeholder='City' size='small' required onChange={(e) => setCity(e.target.value)}/>
+        <TextField value={city} variant="outlined" placeholder='City' size='small' 
+                     onChange={(e) => setCity(e.target.value)} className='textfield'
+                     required
+        />
         <br />
-        <TextField value={birdState} variant="outlined" placeholder='State MN, WI, ETC.' size='small' required onChange={(e) => setBirdState(e.target.value)}/>
+        <TextField value={birdState} variant="outlined" placeholder='State MN, WI, ETC.' 
+                    size='small' required onChange={(e) => setBirdState(e.target.value)}
+                    className='textfield'
+        />
         <br />
-        <TextField value={notes} variant="outlined" placeholder='Notes' multiline rows={3} onChange={(e) => setNotes(e.target.value)}/>
+        <TextField value={notes} variant="outlined" placeholder='Notes' multiline rows={3} 
+                    onChange={(e) => setNotes(e.target.value)}
+                    className='textfield'
+        />
         <br />
-        <input type='Submit'/>
+        <input type='Submit' className='submit'/>
         </form>
     )
 }

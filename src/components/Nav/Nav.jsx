@@ -10,6 +10,7 @@ function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
+    <>
     <div className="nav">
       <div>
         {/* If no user is logged in, show these links */}
@@ -21,27 +22,33 @@ function Nav() {
         )}
 
         {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Hamburger toggled={open} toggle={setOpen} />
-            {open && (
-              <div>
-                  <Link to="/user">My List</Link>
-                  <br />
-                  <Link to="/addbird">Add Bird Sighting</Link>
-                  <br />
-                  <Link to="/nearby">recent sightings in your state</Link>
-              </div>
-            )}
-            {/* add ChirpNet or "logo" to be centered */}
-            {user.username} 
-            {/* Move users name to display on top right on dom */}
-            <br />
-            <LogOutButton className="navLink" />
-          </>
-        )}
+        
+      </div>
+      <div id='user'>
+      {user.username} 
       </div>
     </div>
+    {user.id && (
+      <>
+        <Hamburger toggled={open} toggle={setOpen} color='#2B0702' className='menu'/>
+        {open && (
+          <div>
+              <Link to="/user">My List</Link>
+              <br />
+              <Link to="/addbird">Add Bird Sighting</Link>
+              <br />
+              <Link to="/nearby">recent sightings in your state</Link>
+              <br />
+              <LogOutButton className="navLink" />
+          </div>
+        )}
+        
+        {/* Move users name to display on top right on dom */}
+        <br />
+        
+      </>
+    )}
+     </>
   );
 }
 

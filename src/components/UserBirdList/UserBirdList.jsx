@@ -2,16 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
+import './UserBirdList.css';
 
 
 function UserBirdList() {
     const dispatch = useDispatch();
     const [userList, setUserList] = useState([]);
     const [editBirdId, setEditBirdId] = useState('');
-    const [newCity, setNewCity] = useState('');
-    const [newDate, setNewDate] = useState('');
-    const [newState, setNewState] = useState('');
-    const [newNotes, setNewNotes] = useState('');
+    // const [newCity, setNewCity] = useState('');
+    // const [newDate, setNewDate] = useState('');
+    // const [newState, setNewState] = useState('');
+    // const [newNotes, setNewNotes] = useState('');
    
     // edit valeus from store
     const editCity = useSelector(store => store.editCity);
@@ -81,30 +82,43 @@ function UserBirdList() {
         <>
         {userList.map((bird) => (
             bird.id === editBirdId ? // need to have state use default value if no value is added??
-                <div key={bird.id}>
-                    <h4>{bird.common_name}</h4>
-                    <h6>{bird.scientific_name}</h6> 
-                    <input onChange={(e) => dispatch({ type: 'SET_CITY', payload: e.target.value })} defaultValue={bird.city} />
-                    <input onChange={(e) => dispatch({ type: 'SET_STATE', payload: e.target.value })} defaultValue={bird.state} />
-                    <input onChange={(e) => dispatch({ type: 'SET_DATE', payload: e.target.value })} defaultValue={moment(bird.date).format('LL')} />
-                    <input onChange={(e) => dispatch({ type: 'SET_NOTES', payload: e.target.value })}  defaultValue={bird.notes} /> 
-                    <button onClick={() => deleteBird(bird.id)}>Delete</button>
-                    <button onClick={() => saveEditedBird(bird.id)}>Save</button> 
+                <div key={bird.id} className="birditem">
+                    <div className="names">
+                        <h4>{bird.common_name}</h4>
+                        <h6>{bird.scientific_name}</h6> 
+                    </div>
+                    <div className="locdate">
+                        <input onChange={(e) => dispatch({ type: 'SET_CITY', payload: e.target.value })} 
+                            defaultValue={bird.city} />
+                        <input onChange={(e) => dispatch({ type: 'SET_STATE', payload: e.target.value })} 
+                            defaultValue={bird.state} />
+                        <input onChange={(e) => dispatch({ type: 'SET_DATE', payload: e.target.value })} 
+                            defaultValue={moment(bird.date).format('LL')} />
+                        </div>
+                        <div className="btnotes">
+                        <input onChange={(e) => dispatch({ type: 'SET_NOTES', payload: e.target.value })}  
+                            defaultValue={bird.notes} className="notes"/> 
+                        <button onClick={() => deleteBird(bird.id)}>Delete</button>
+                        <button onClick={() => saveEditedBird(bird.id)}>Save</button> 
+                    </div>
                 </div>
                 :
-                <div key={bird.id}>
-                    <h4>{bird.common_name}</h4>
-                    <h6>{bird.scientific_name}</h6>
-                    <p>{bird.city},{bird.state}</p>
-                    <h6>{moment(bird.date).format('LL')}</h6>
-                    <p>{bird.notes}</p>
+                <div key={bird.id} className="birditem">
+                    <div className="names">
+                        <h4>{bird.common_name}</h4>
+                        <h6>{bird.scientific_name}</h6>
+                        
+                    </div>
+                    <div className="locdate">
+                    <p>{bird.city},{bird.state} {moment(bird.date).format('LL')}</p>
+                    <p className="notes">{bird.notes}</p>
+                    </div>
+                    <div className="btnotes">
                     <button onClick={() => deleteBird(bird.id)}>Delete</button>
                     <button onClick={() => editBird(bird.id)}>Edit</button> 
+                    </div>
                 </div>
         ))}
-        {/* <button onClick={() => setEditBirdId(bird.id)}>Edit</button>  */}
-                    {/* Make edit onclick a function that sets bird id (target parent key?) 
-                        and sets the state for city state date notes */}
         </>
     )
 };
