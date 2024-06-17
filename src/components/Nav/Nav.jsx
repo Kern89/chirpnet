@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Hamburger from "hamburger-react"
+import zIndex from '@mui/material/styles/zIndex';
 
 function Nav() {
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [open, setOpen] = useState(false);
 
@@ -13,6 +15,25 @@ function Nav() {
     <>
     <div className="nav">
       <div>
+      {user.id && (
+      <div >
+        <Hamburger toggled={open} toggle={setOpen} color='#2B0702' 
+                   rounded
+        />
+        {open && (
+          <div className='menu'>
+              <Link to="/user" className='menuitem'>My List</Link>
+              <br />
+              <Link to="/addbird" className='menuitem'>Add Bird Sighting</Link>
+              <br />
+              <Link to="/nearby" className='menuitem'>recent sightings in your state</Link>
+              <br />
+              <Link className='menuitem' onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</Link>
+              {/* <LogOutButton className="navLink" /> */}
+          </div>
+        )}
+      </div>
+    )}
         {/* If no user is logged in, show these links */}
         {!user.id && (
           // If there's no user, show login/registration links
@@ -20,34 +41,14 @@ function Nav() {
             Login / Register
           </Link>
         )}
-
-        {/* If a user is logged in, show these links */}
-        
       </div>
+      
       <div id='user'>
       {user.username} 
       </div>
     </div>
-    {user.id && (
-      <>
-        <Hamburger toggled={open} toggle={setOpen} color='#2B0702' className='menu'/>
-        {open && (
-          <div>
-              <Link to="/user">My List</Link>
-              <br />
-              <Link to="/addbird">Add Bird Sighting</Link>
-              <br />
-              <Link to="/nearby">recent sightings in your state</Link>
-              <br />
-              <LogOutButton className="navLink" />
-          </div>
-        )}
-        
-        {/* Move users name to display on top right on dom */}
-        <br />
-        
-      </>
-    )}
+     {/* If a user is logged in, show these links */}
+    
      </>
   );
 }

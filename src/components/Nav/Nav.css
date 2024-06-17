@@ -40,22 +40,19 @@
   cursor: pointer;
   outline: 0;
 }
-
-.navLink:hover {
-  color: #F8A093;
-}
 #user {
   display: flex;
   align-self: flex-start;
   margin: 20px;
 }
 .menu {
-  display: flex;
-  background-color: transparent;
   color: #2B0702;
-  z-index: 2;
   position: absolute;
+  background-color: #F8A093;
+  border-radius: 0 0 15px 15px;
 }
-.menu:hover {
+.menuitem {
   color: #2B0702;
+  margin: 15px;
+  /* background-color: #F8A093; */
 }
