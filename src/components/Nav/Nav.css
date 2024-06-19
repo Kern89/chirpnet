@@ -50,9 +50,9 @@
   position: absolute;
   background-color: #F8A093;
   border-radius: 0 0 15px 15px;
+  padding-bottom: 5px;
 }
 .menuitem {
   color: #2B0702;
   margin: 15px;
-  /* background-color: #F8A093; */
 }

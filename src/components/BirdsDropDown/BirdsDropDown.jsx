@@ -58,7 +58,7 @@ function BirdsDropDown({setBirdSp, birdSp}) {
       disablePortal
       id="localBirds"
       options={localBirdsArray}
-      sx={{ width: 300, style: { textAlign: 'center', align: 'center' } }}
+      sx={{ width: 250, style: { textAlign: 'center', align: 'center' } }}
       renderInput={(params) => <TextField {...params} label="Bird Species" size='small' onClick={setBird(params)} required />}
     />
     </div>

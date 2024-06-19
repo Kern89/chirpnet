@@ -30,6 +30,8 @@ function AddBirdForm() {
     };
 
     return (
+        <>
+        <h2 id='add'>Add Bird Sighting</h2>
         <form onSubmit={addBird} >
         <BirdsDropDown required setBirdSp={setBirdSp} birdSp={birdSp}/>
         <input value={date} type="date" required onChange={(e) => setDate(e.target.value)}
@@ -52,6 +54,7 @@ function AddBirdForm() {
         <br />
         <input type='Submit' className='submit'/>
         </form>
+        </>
     )
 }
 
