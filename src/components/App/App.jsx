@@ -45,9 +45,15 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:5173/user */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
             exact
             path="/user"
+          >
+          <Redirect to="/list" />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/list"
           >
             <UserBirdList />
           </ProtectedRoute>

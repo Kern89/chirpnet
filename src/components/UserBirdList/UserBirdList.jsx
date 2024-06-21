@@ -70,6 +70,7 @@ function UserBirdList() {
     };
  
     useEffect(() => {
+    console.log("UserBirdList useEffect", user.id);
       seenBirds();  
     }, [])
 
