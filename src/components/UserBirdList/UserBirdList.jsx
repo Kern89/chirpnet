@@ -9,10 +9,6 @@ function UserBirdList() {
     const dispatch = useDispatch();
     const [userList, setUserList] = useState([]);
     const [editBirdId, setEditBirdId] = useState('');
-    // const [newCity, setNewCity] = useState('');
-    // const [newDate, setNewDate] = useState('');
-    // const [newState, setNewState] = useState('');
-    // const [newNotes, setNewNotes] = useState('');
    
     // edit valeus from store
     const editCity = useSelector(store => store.editCity);
@@ -20,11 +16,10 @@ function UserBirdList() {
     const editDate = useSelector(store => store.editDate);
     const editNotes = useSelector(store => store.editNotes);
 
-    // async await to make get request then send to reducer?
     const editBird = async (id) => {
         setEditBirdId(id);
         await axios.get(`/api/birds/edit/${id}`).then(response => {
-            console.log("Response.data:", response.data[0]);//store response data in an array to be passed as payload to reducer?
+            //console.log("Response.data:", response.data[0]);
         dispatch({ type: 'SET_CITY', payload: response.data[0].city })
         dispatch({ type: 'SET_STATE', payload: response.data[0].state });
         dispatch({ type: 'SET_DATE', payload: response.data[0].date });

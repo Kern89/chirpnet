@@ -26,10 +26,9 @@ function Nav() {
               <br />
               <Link to="/addbird" className='menuitem'>Add Bird Sighting</Link>
               <br />
-              <Link to="/nearby" className='menuitem'>recent sightings in your state</Link>
+              <Link to="/nearby" className='menuitem'>Recent sightings in your state</Link>
               <br />
-              <Link className='menuitem' onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</Link>
-              {/* <LogOutButton className="navLink" /> */}
+              <Link to="/login" className='menuitem' onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</Link>
           </div>
         )}
       </div>
@@ -47,7 +46,7 @@ function Nav() {
       {user.username} 
       </div>
     </div>
-     {/* If a user is logged in, show these links */}
+    
     
      </>
   );
