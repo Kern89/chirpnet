@@ -1,15 +1,21 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Hamburger from "hamburger-react"
-import zIndex from '@mui/material/styles/zIndex';
+
 
 function Nav() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((store) => store.user);
   const [open, setOpen] = useState(false);
+
+  const HandleLogOut = () => {
+    dispatch({ type: 'LOGOUT' });
+    history.push("/login")
+  }
+
 
   return (
     <>
@@ -28,7 +34,7 @@ function Nav() {
               <br />
               <Link to="/nearby" className='menuitem'>Recent sightings in your state</Link>
               <br />
-              <Link to="/login" className='menuitem' onClick={() => dispatch({ type: 'LOGOUT' })}>Log Out</Link>
+              <Link to="/login" className='menuitem' onClick={HandleLogOut}>Log Out</Link>
           </div>
         )}
       </div>
@@ -42,9 +48,9 @@ function Nav() {
         )}
       </div>
       
-      <div id='user'>
+      {/* <div id='user'>
       {user.username} 
-      </div>
+      </div> */}
     </div>
     
     

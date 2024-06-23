@@ -15,6 +15,7 @@ function UserBirdList() {
     const editState = useSelector(store => store.editState);
     const editDate = useSelector(store => store.editDate);
     const editNotes = useSelector(store => store.editNotes);
+    const user = useSelector(store => store.user);
 
     const editBird = async (id) => {
         setEditBirdId(id);
@@ -32,13 +33,17 @@ function UserBirdList() {
     }
     
     const seenBirds = () => {
-        axios.get('/api/birdList').then(response => {
-            //console.log('GET response',response.data);
-            setUserList(response.data)
-        }).catch(error => {
-            console.log(error);
-            alert('Something went wrong!')
-        });
+        if(user.id) {
+            axios.get('/api/birdList').then(response => {
+                //console.log('GET response',response.data);
+                setUserList(response.data)
+            }).catch(error => {
+                console.log(error);
+                alert('Something went wrong!')
+            });
+        } else {
+            console.log('user.id:', user.id);
+        }
     }
 
     const deleteBird = (id) => {
@@ -70,8 +75,12 @@ function UserBirdList() {
     };
  
     useEffect(() => {
-    console.log("UserBirdList useEffect", user.id);
-      seenBirds();  
+        if(user.id) {
+            console.log('in if statment:', user.id);
+            seenBirds();  
+        } else {
+            console.log('user is:', user.id);
+        }
     }, [])
 
     return (
