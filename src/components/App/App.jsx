@@ -13,6 +13,7 @@ import AddBirdForm from '../AddBirdForm/AddBirdForm';
 import './App.css';
 import UserBirdList from '../UserBirdList/UserBirdList';
 import NearbyBirds from '../NearbyBirds/NearbyBirds';
+import RegisterForm from '../RegisterForm/RegisterForm';
 
 function App() {
  
@@ -57,6 +58,7 @@ function App() {
             exact
             path="/registration"
           >
+            <RegisterForm />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
