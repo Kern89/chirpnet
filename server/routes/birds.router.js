@@ -31,21 +31,8 @@ router.get('/edit/:id', (req, res) => {
 
 })
 
-// ----------- This Route isnt needed anymore??? -----------------------
-// router.get('/:id', (req, res) => {
-//   const sqlText = `SELECT "id" FROM "bird_species"
-//                     WHERE "common_name" = $1;`;
-//     // console.log("req.params:", req.params.id);
-//   pool.query(sqlText, [req.params.id]).then(result => {
-//     // console.log(result.rows);
-//     res.send(result.rows)
-//   }).catch(error => {
-//     console.log(error);
-//     res.sendStatus(500);
-//   })
-// })
-
-// Called this once and then commented it out.
+// This route was used to populate the nearby birds list andthen commented out.
+// only would need again if wanted to change location to a different state.
 
 // router.post('/seed', async (req, res) => {
 //   const client = await pool.connect();

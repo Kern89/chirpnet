@@ -20,8 +20,6 @@ function NearbyBirds() {
         eBirdList();
 
     }, []);
-    //add a refresh button?
-    // if (birdsSeen[0]) {
         return(
             <>
             <h2>Recent Sightings in your state</h2>
@@ -35,9 +33,6 @@ function NearbyBirds() {
             ))}
             </>
         )
-    // } else {
-    //     <h1>Loading</h1>
-    // }
 };
 
 export default NearbyBirds;

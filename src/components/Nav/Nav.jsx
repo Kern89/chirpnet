@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import Hamburger from "hamburger-react"
-
+import { useCallback } from 'react';
 
 function Nav() {
   const dispatch = useDispatch();
@@ -11,11 +11,9 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const [open, setOpen] = useState(false);
 
-  const HandleLogOut = () => {
-    dispatch({ type: 'LOGOUT' });
-    history.push("/login")
-  }
-
+  const HandleLogOut = useCallback(() => { 
+    dispatch({ type: 'LOGOUT' }); history.replace("/login"); 
+  }, [dispatch, history]);
 
   return (
     <>
@@ -48,9 +46,9 @@ function Nav() {
         )}
       </div>
       
-      {/* <div id='user'>
+      <div id='user'>
       {user.username} 
-      </div> */}
+      </div>
     </div>
     
     

@@ -10,7 +10,7 @@ function UserBirdList() {
     const [userList, setUserList] = useState([]);
     const [editBirdId, setEditBirdId] = useState('');
    
-    // edit valeus from store
+    // edit values from store
     const editCity = useSelector(store => store.editCity);
     const editState = useSelector(store => store.editState);
     const editDate = useSelector(store => store.editDate);
@@ -63,7 +63,6 @@ function UserBirdList() {
             editNotes,
             id
         ];
-    // console.log("birdChanges:", birdChanges);
     axios.put(`/api/birdList`, [birdChanges]).then(response => {
         console.log('PUT response:', response);
         seenBirds();
@@ -76,7 +75,7 @@ function UserBirdList() {
  
     useEffect(() => {
         if(user.id) {
-            console.log('in if statment:', user.id);
+           // console.log('in if statment:', user.id);
             seenBirds();  
         } else {
             console.log('user is:', user.id);
@@ -86,7 +85,7 @@ function UserBirdList() {
     return (
         <>
         {userList.map((bird) => (
-            bird.id === editBirdId ? // need to have state use default value if no value is added??
+            bird.id === editBirdId ? 
                 <div key={bird.id} className="birditem">
                     <div className="names">
                         <h4>{bird.common_name}</h4>

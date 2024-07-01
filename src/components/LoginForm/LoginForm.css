@@ -10,3 +10,6 @@ input {
     color: #F8A093;
     text-align: center;
 }
+.btn:hover {
+    background-color: #F8F7E6;
+}
